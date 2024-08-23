@@ -1,6 +1,6 @@
-const redtext = $('#redtext');
+const redtext = document.getElementById('redtext');
 
-$(window).on('load', function () {
+window.addEventListener('load', function () {
     console.log("Document loaded...");
 
     const url = window.location.pathname;
@@ -14,59 +14,69 @@ $(window).on('load', function () {
     }
 
     // Check if a password is required
-    $.ajax({
-        url: 'https://xdev-urlshortner-backend.vercel.app/urlshortner/check_for_password',
-        type: 'GET',
-        data: { url_name: id },
-        contentType: 'application/json',
-        success: function(data) {
-            if (data.requires_password) {
-                showPrompt('Please enter the password.', 'password123', function(password) {
-                    $.ajax({
-                        url: 'https://xdev-urlshortner-backend.vercel.app/urlshortner/get_url',
-                        type: 'GET',
-                        data: {
-                            url_name: id,
-                            password: password
-                        },
-                        contentType: 'application/json',
-                        success: function(data) {
-                            redirectToUrl(data.original_url);
-                        },
-                        error: function() {
-                            showMessageBox('Invalid password.', function() {
-                                redirectToUrl("https://xdev.uno/");
-                            });
-                        }
+    const xhrCheckPassword = new XMLHttpRequest();
+    xhrCheckPassword.open('POST', 'https://xdev-urlshortner-backend.vercel.app/urlshortner/check_for_password', true);
+    xhrCheckPassword.setRequestHeader('Content-Type', 'application/json');
+
+    xhrCheckPassword.onreadystatechange = function () {
+        if (xhrCheckPassword.readyState === 4) {
+            const passwordJson = JSON.parse(xhrCheckPassword.responseText);
+            if (passwordJson.requires_password) {
+                const data = JSON.parse(xhrCheckPassword.responseText);
+                if (data.requires_password) {
+                    showPrompt('Please enter the password.', 'password123', function(password) {
+                        const xhrGetUrl = new XMLHttpRequest();
+                        xhrGetUrl.open('POST', 'https://xdev-urlshortner-backend.vercel.app/urlshortner/get_url', true);
+                        xhrGetUrl.setRequestHeader('Content-Type', 'application/json');
+
+                        xhrGetUrl.onreadystatechange = function () {
+                            if (xhrGetUrl.readyState === 4) {
+                                if (xhrGetUrl.status === 200) {
+                                    const data = JSON.parse(xhrGetUrl.responseText);
+                                    redirectToUrl(data.original_url);
+                                } else {
+                                    showMessageBox('Invalid password.', function() {
+                                        redirectToUrl("https://xdev.uno/");
+                                    });
+                                }
+                            }
+                        };
+
+                        xhrGetUrl.send(JSON.stringify({ url_name: id, password: password }));
                     });
-                });
+                } else {
+                    const xhrGetUrl = new XMLHttpRequest();
+                    xhrGetUrl.open('POST', 'https://xdev-urlshortner-backend.vercel.app/urlshortner/get_url', true);
+                    xhrGetUrl.setRequestHeader('Content-Type', 'application/json');
+
+                    xhrGetUrl.onreadystatechange = function () {
+                        if (xhrGetUrl.readyState === 4) {
+                            if (xhrGetUrl.status === 200) {
+                                const data = JSON.parse(xhrGetUrl.responseText);
+                                redirectToUrl(data.original_url);
+                            } else {
+                                showMessageBox('An unknown error occurred.', function() {
+                                    redirectToUrl("https://xdev.uno/");
+                                });
+                            }
+                        }
+                    };
+
+                    xhrGetUrl.send(JSON.stringify({ url_name: id }));
+                }
             } else {
-                $.ajax({
-                    url: 'https://xdev-urlshortner-backend.vercel.app/urlshortner/get_url',
-                    type: 'GET',
-                    data: { url_name: id },
-                    contentType: 'application/json',
-                    success: function(data) {
-                        redirectToUrl(data.original_url);
-                    },
-                    error: function() {
-                        showMessageBox('An unknown error occurred.', function() {
-                            redirectToUrl("https://xdev.uno/");
-                        });
-                    }
+                console.error('Failed to check for password');
+                showMessageBox('An error occurred while checking for the password.', function() {
+                    redirectToUrl("https://xdev.uno/");
                 });
             }
-        },
-        error: function() {
-            console.error('Failed to check for password');
-            showMessageBox('An error occurred while checking for the password.', function() {
-                redirectToUrl("https://xdev.uno/");
-            });
         }
-    });
+    };
+
+    xhrCheckPassword.send(JSON.stringify({ url_name: id }));
 });
 
 function redirectToUrl(url) {
-    redtext.text(`Redirecting to ${url}...`);
+    redtext.textContent = `Redirecting to ${url}...`;
     window.location.href = url;
 }
