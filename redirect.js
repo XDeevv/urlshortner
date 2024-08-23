@@ -6,7 +6,7 @@ window.addEventListener('load', function () {
     const url = window.location.pathname;
     const id = url.substring(1);
 
-    if (id.length >=! 1) {
+    if (id.length < 1) {
         console.error("Url characters less expected");
         showMessageBox('Invalid URL.', function() {
             redirectToUrl("https://xdev.uno/");
