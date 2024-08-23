@@ -1,0 +1,88 @@
+/* Styles for the prompt container */
+.prompt-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Styles for the prompt box */
+.prompt-box {
+    background-color: rgba(32, 32, 32, 0.427);
+    padding: 30px 35px;
+    border: 1px solid #5C5C54;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    backdrop-filter: blur(8px);
+}
+
+/* Styles for elements inside the prompt box */
+.prompt-box p {
+    margin-bottom: 15px;
+}
+
+.prompt-box input[type="password"] {
+    width: 100%;
+    background-color: #121212c6;
+    color: #E6E7D3;
+    border: 1px solid #5C5C54;
+    border-radius: 8px;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+/* Styles for the message box container */
+.message-box-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Styles for the message box */
+.message-box {
+    background-color: rgba(32, 32, 32, 0.427);
+    padding: 30px 35px;
+    border: 1px solid #5C5C54;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    backdrop-filter: blur(8px);
+}
+
+/* Styles for elements inside the message box */
+.message-box p {
+    margin-bottom: 15px;
+}
+
+/* Common button styles */
+.prompt-box button,
+.message-box button {
+    padding: 7px 30px;
+    background-color: #121212c6;
+    color: #E6E7D3;
+    border: 1px solid #5C5C54;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.prompt-box button:hover,
+.message-box button:hover {
+    background-color: #141414c6;
+    transform: translateY(-1.5px);
+}

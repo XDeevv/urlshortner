@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #0e0e0e;
+    color: #E6E7D3;
+    font-style: normal;
+    font-weight: normal;
+    font-family: "Lexend", sans-serif;
+    font-optical-sizing: auto;
+}
+h1 {
+    font-weight: normal;
+}
+.supertext {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
