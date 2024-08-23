@@ -65,7 +65,7 @@ window.addEventListener('load', function () {
                     xhrGetUrl.send(JSON.stringify({ url_name: id }));
                 }
             } else {
-                console.error('Failed to check for password');
+                console.error(`Failed to check for password, url id given: ${id}`);
                 showMessageBox('An error occurred while checking for the password.', function() {
                     redirectToUrl("https://xdev.uno/");
                 });
