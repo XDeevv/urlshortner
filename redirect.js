@@ -55,8 +55,8 @@ window.addEventListener('load', function () {
         }
     })
     .catch(error => {
+        console.error(`Failed to check for password: ${error}`);
         showMessageBox('An error occurred while checking for the password.', function() {
-            console.error(`Failed to check for password: ${error}`);
             redirectToUrl("https://xdev.uno/");
         });
     });
