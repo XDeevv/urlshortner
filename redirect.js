@@ -22,6 +22,7 @@ window.addEventListener('load', function () {
     xhrCheckPassword.onreadystatechange = function () {
         if (xhrCheckPassword.readyState === 4) {
             const passwordJson = JSON.parse(xhrCheckPassword.responseText);
+            console.log(passwordJson.requires_password);
             if (passwordJson.requires_password) {
                 const data = JSON.parse(xhrCheckPassword.responseText);
                 if (data.requires_password) {
@@ -78,6 +79,6 @@ window.addEventListener('load', function () {
 });
 
 function redirectToUrl(url) {
-    redtext.textContent = `Redirecting to ${url}...`;
+    redtext.textContent = (`Redirecting to ${url}...`).replace("https://", "").replace("www.", "");
     window.location.href = url;
 }
