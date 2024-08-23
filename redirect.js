@@ -15,7 +15,7 @@ window.addEventListener('load', function () {
 
     // Check if a password is required
     const xhrCheckPassword = new XMLHttpRequest();
-    xhrCheckPassword.open('POST', 'https://xdev-urlshortner-backend.vercel.app/urlshortner/check_for_password', true);
+    xhrCheckPassword.open('GET', 'https://xdev-urlshortner-backend.vercel.app/urlshortner/check_for_password', true);
     xhrCheckPassword.setRequestHeader('Content-Type', 'application/json');
 
     xhrCheckPassword.onreadystatechange = function () {
@@ -26,7 +26,7 @@ window.addEventListener('load', function () {
                 if (data.requires_password) {
                     showPrompt('Please enter the password.', 'password123', function(password) {
                         const xhrGetUrl = new XMLHttpRequest();
-                        xhrGetUrl.open('POST', 'https://xdev-urlshortner-backend.vercel.app/urlshortner/get_url', true);
+                        xhrGetUrl.open('GET', 'https://xdev-urlshortner-backend.vercel.app/urlshortner/get_url', true);
                         xhrGetUrl.setRequestHeader('Content-Type', 'application/json');
 
                         xhrGetUrl.onreadystatechange = function () {
@@ -46,7 +46,7 @@ window.addEventListener('load', function () {
                     });
                 } else {
                     const xhrGetUrl = new XMLHttpRequest();
-                    xhrGetUrl.open('POST', 'https://xdev-urlshortner-backend.vercel.app/urlshortner/get_url', true);
+                    xhrGetUrl.open('GET', 'https://xdev-urlshortner-backend.vercel.app/urlshortner/get_url', true);
                     xhrGetUrl.setRequestHeader('Content-Type', 'application/json');
 
                     xhrGetUrl.onreadystatechange = function () {
