@@ -6,7 +6,7 @@ window.addEventListener('load', function () {
     const url = window.location.pathname;
     const id = url.substring(1);
 
-    if (id.length !== 9) {
+    if (id.length !== 1) {
         showMessageBox('Invalid URL.', function() {
             redirectToUrl("https://xdev.uno/");
         });
